@@ -1,1 +1,22 @@
-<p>thufiles works!</p>
+<p>Point:{{point}}</p>
+<div style="margin-left: 15px;">
+    <form [formGroup]='fromProducter'>
+        <div *ngFor="let item of testt">
+            {{item.ques}}      
+            <div class="form-group" >
+                <select class="form-control" id="exampleFormControlSelect1" formControlName='answer'>
+                <option  value="a">{{item.a}} </option>
+                <option  value="b">{{item.b}} </option>
+                <option  value="c">{{item.c}} </option>
+                <option  value="d">{{item.d}} </option>
+                </select>
+            </div>
+            <button (click)="onSubmit(item.id - 1)">
+                Submit
+            </button>
+        </div>
+        
+    </form>
+        
+    
+</div>
