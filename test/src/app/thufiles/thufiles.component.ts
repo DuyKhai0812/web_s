@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-thufiles',
@@ -8,49 +10,66 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ThufilesComponent implements OnInit {
 
-  constructor(private fromBD:FormBuilder,) { this.initFrom()}
+  constructor(private fromBD:FormBuilder,private rt:Router) {this.innit()}
 
   ngOnInit(): void {
-    console.log(this.testt)
+    console.log(this.testt[1].ans.a)
   }
   fromProducter !:FormGroup;
+  show: string = "No";
   testt:any = 
   [
-    {id:1,ques:"1 + 1 = ?",a : 2,b: 3,c: 4,d: 5,answer: "a"},
-    {id:2,ques:"2 + 2 = ?",a : 2,b: 3,c: 4,d: 5,answer: "c"}
+    {id:1,ques:"1 + 1 = ?",ans : {a : 2,b: 3,c: 4,d: 5},answer: "a",your_ans:"None"},
+    {id:2,ques:"2 + 2 = ?",ans : {a : 2,b: 3,c: 4,d: 5},answer: "c",your_ans:"None"},
+    {id:3,ques:"Nước nào là châu á",ans : {a : "Việt Nam",b: "Mỹ",c: "Anh",d: "Cả 3 đều sai"},answer: "a",your_ans:"None"}
   ]
-  initFrom()
-  {
-    this.fromProducter = this.fromBD.group
-    (
+  numberr : Number = 0;
+  innit(){
+    this.fromProducter = this.fromBD.group(
       {
-        answer: new FormControl('',[Validators.required,Validators.maxLength(15)]),
+        answer : this.fromBD.array(
+          [
+            new FormControl('id'),
+            new FormControl('answer')
+          ])
       }
-    )
+    );
   }
-  dap_an : string = "";
-  tra_loi : string = "";
-  point: number = 0;
-  onSubmit(a:number)
-  {
-    console.log(this.fromProducter.value.answer)
-    console.log(this.testt[a].answer)
-    this.tra_loi = this.fromProducter.value.answer;
-    this.dap_an = this.testt[a].answer;
-    if(this.tra_loi == this.dap_an)
+  array :any = []
+  submit(answerr:string,id:number,i:number){
+    let find = this.array.findIndex((item:any)=>item.id_ans == id)
+    if(find == -1)
     {
-      alert("Đúng")
-      this.point +=1;
+      let JSON = {id_ans:id,ans:answerr}
+      this.array.push(JSON)
     }
     else
     {
-      alert("Sai")
-      if(this.point <= 0)
-        this.point -=0;
-      else
-        this.point -=1;
+      this.array.filter((x:any) => [id].indexOf(x.id_ans) >= 0).forEach((x:any) => x.ans = answerr)
+    }
+    console.log(find)
+    
+    console.log(this.array)
+
+  }
+  a:any
+  point:number = 0;
+  dis: boolean = false;
+  dis2: boolean = true;
+  onSubmit()
+  {
+    alert(this.array.length)
+    for(let i = 0;i < this.array.length;i++)
+    {
+      if(this.array[i].ans == this.testt[i].answer)
+      {
+        let divi = 100 / this.array.length;
+        this.point = this.point + divi;
+        this.dis = true;
+        this.dis2 = false;
+        
+      }
     }
   }
-
-
+  
 }

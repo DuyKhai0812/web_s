@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule, Routes } from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ThufileComponent } from './thufile/thufile.component';
 import { ThufilesComponent } from './thufiles/thufiles.component';
+
 
 const route : Routes = 
 [
@@ -26,6 +28,7 @@ const route : Routes =
     RouterModule.forRoot(route),
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

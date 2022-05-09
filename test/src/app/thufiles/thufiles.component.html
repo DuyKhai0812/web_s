@@ -1,22 +1,55 @@
-<p>Point:{{point}}</p>
-<div style="margin-left: 15px;">
-    <form [formGroup]='fromProducter'>
-        <div *ngFor="let item of testt">
-            {{item.ques}}      
-            <div class="form-group" >
-                <select class="form-control" id="exampleFormControlSelect1" formControlName='answer'>
-                <option  value="a">{{item.a}} </option>
-                <option  value="b">{{item.b}} </option>
-                <option  value="c">{{item.c}} </option>
-                <option  value="d">{{item.d}} </option>
-                </select>
+<div style="background-color: blue;">
+    <div style="margin-left: 15px;">
+        <form *ngFor="let item of testt,let i = index ">
+            Câu {{item.id}}:
+            <fieldset [disabled]="dis">
+            <div >
+                {{item.ques}}      
+                <div class="form-group" >
+                    <div class="form-check">
+                        <input  [(ngModel)]="item.your_ans" (change)="submit(item.your_ans,item.id,i)"  class="form-check-input" type="radio" name="{{item.id}}" id="flexRadioDefault1" value="a">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            a.{{item.ans.a}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="form-check">
+                        <input  [(ngModel)]="item.your_ans" (change)="submit(item.your_ans,item.id,i)" class="form-check-input" type="radio" name="{{item.id}}" id="flexRadioDefault1" value="b">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            b.{{item.ans.b}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="form-check">
+                        <input  [(ngModel)]="item.your_ans" (change)="submit(item.your_ans,item.id,i)" class="form-check-input" type="radio" name="{{item.id}}" id="flexRadioDefault1" value="c">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            c.{{item.ans.c}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="form-check">
+                        <input  [(ngModel)]="item.your_ans" (change)="submit(item.your_ans,item.id,i)" class="form-check-input" type="radio" name="{{item.id}}" id="flexRadioDefault1" value="d">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            d.{{item.ans.d}}
+                        </label>
+                    </div>
+                </div>
             </div>
-            <button (click)="onSubmit(item.id - 1)">
-                Submit
-            </button>
+        </fieldset>
+            Your answer: {{item.your_ans}}
+        </form>
+        <button (click)="onSubmit()">
+            Submit
+        </button><br>
+        Điểm : {{point}}
+        
+        <div class="progress" style="pointer-events: none;">
+            <fieldset disabled>
+                <div class="progress-bar progress-bar-striped progress-bar-animated"  role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [style.width]="point + '%'" >{{point}} %</div>
+            </fieldset>
         </div>
-        
-    </form>
-        
-    
+    </div>
 </div>
