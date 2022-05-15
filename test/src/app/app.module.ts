@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ThufileComponent } from './thufile/thufile.component';
 import { ThufilesComponent } from './thufiles/thufiles.component';
+import { CountdownModule } from 'ngx-countdown';
 
 
 const route : Routes = 
@@ -28,7 +29,8 @@ const route : Routes =
     RouterModule.forRoot(route),
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule, 
+    CountdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
